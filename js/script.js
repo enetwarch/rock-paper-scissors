@@ -82,8 +82,7 @@ function evaluateWinner(playerMove, computerMove) {
 function displayMoves(playerMove, computerMove) {
     const playerMoveIcon = getMoveIcon(playerMove);
     const computerMoveIcon = getMoveIcon(computerMove);
-    player.innerHTML = playerMoveIcon;
-    computer.innerHTML = computerMoveIcon;
+    displayFade(playerMoveIcon, computerMoveIcon);
 }
 
 function getMoveIcon(move) {
@@ -95,6 +94,20 @@ function getMoveIcon(move) {
 }
 
 function displayScores() {
-    player.innerHTML = scores.player;
-    computer.innerHTML = scores.computer;
+    const playerScore = scores.player;
+    const computerScore = scores.computer;
+    displayFade(playerScore, computerScore);
+}
+
+function displayFade(playerSide, computerSide) {
+    player.classList.add("fade-out");
+    computer.classList.add("fade-out");
+    setTimeout(() => {
+        player.innerHTML = playerSide;
+        computer.innerHTML = computerSide;
+        player.classList.remove("fade-out");
+        computer.classList.remove("fade-out");
+        player.classList.add("fade-in");
+        computer.classList.add("fade-in"); 
+    }, 100);
 }

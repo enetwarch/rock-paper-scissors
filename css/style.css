@@ -60,6 +60,7 @@ body {
     display: flex;
     font-size: 5rem;
     justify-content: center;
+    transition: opacity 0.1s;
 }
 
 .phone .input {
@@ -85,4 +86,12 @@ body {
 
 .phone .fa-solid.fa-hand-scissors {
     transform: rotate(90deg) scaleY(-1);
+}
+
+.fade-in {
+    opacity: 1;
+}
+
+.fade-out {
+    opacity: 0;
 }
