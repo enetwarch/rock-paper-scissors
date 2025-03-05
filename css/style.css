@@ -74,7 +74,3 @@ body {
 .phone .input:hover {
     cursor: pointer;
 }
-
-.phone #scissors.input i {
-    transform: rotate(90deg) scaleY(-1);
-}
