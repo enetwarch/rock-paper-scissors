@@ -27,8 +27,7 @@ function addListener(listener, func) {
         const id = listener[1];
         const element = document.getElementById(id);
         element.addEventListener(eventType, func);
-    }
-    if (eventType === "keyup") {
+    } else if (eventType === "keyup") {
         const eventCode = listener[1];
         document.addEventListener(eventType, event => {
             if (event.code === eventCode) func();
