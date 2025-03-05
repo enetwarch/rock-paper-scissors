@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+
+:root {
+    --black-1: #1a1a1a;
+    --black-2: #333333;
+    --black-3: #4d4d4d;
+    --blue: #608cab;
+    --green: #72a079;
+    --red: #bb4948;
+    --white: #e6e6e6;
+}
+
+* {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: border-box;
+    font-family: "Varela Round", sans-serif;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+html {
+    font-size: clamp(8px, 2vw, 16px);
+}
+
+body {
+    align-items: center;
+    background-color: var(--black-1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.phone {
+    background-color: var(--black-2);
+    border-radius: 2rem;
+    display: grid;
+    gap: 1rem;
+    grid-template: 20rem 4rem / repeat(3, 4rem);
+    padding: 2rem;
+}
+
+.phone > * {
+    border-radius: 1rem;
+}
+
+.phone .output {
+    background-color: var(--green);
+    display: grid;
+    grid-column: 1 / 4;
+    grid-template-rows: repeat(2, 1fr);
+    padding: 1rem;
+}
+
+.phone .output > * {
+    align-items: center;
+    color: var(--black-2);
+    display: flex;
+    font-size: 5rem;
+    justify-content: center;
+}
+
+.phone .input {
+    align-items: center;
+    background-color: var(--black-3);
+    color: var(--white);
+    display: flex;
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.phone .input:hover {
+    cursor: pointer;
+}
+
+.phone #scissors.input i {
+    transform: rotate(90deg) scaleY(-1);
+}
