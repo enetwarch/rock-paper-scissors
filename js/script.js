@@ -80,13 +80,13 @@ function evaluateWinner(playerMove, computerMove) {
 }
 
 function displayMoves(playerMove, computerMove) {
-    const playerMoveIcon = getIcon(playerMove);
-    const computerMoveIcon = getIcon(computerMove);
+    const playerMoveIcon = getMoveIcon(playerMove);
+    const computerMoveIcon = getMoveIcon(computerMove);
     player.innerHTML = playerMoveIcon;
     computer.innerHTML = computerMoveIcon;
 }
 
-function getIcon(move) {
+function getMoveIcon(move) {
     switch (move) {
         case 1: return `<i class="fa-solid fa-hand-back-fist"></i>`;
         case 2: return `<i class="fa-solid fa-hand"></i>`;

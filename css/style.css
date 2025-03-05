@@ -74,3 +74,15 @@ body {
 .phone .input:hover {
     cursor: pointer;
 }
+
+.phone .output #computer .fa-solid.fa-hand-scissors {
+    transform: rotate(-90deg) scaleY(-1);
+}
+
+.phone .output #computer .fa-solid {
+    transform: rotate(180deg);
+}
+
+.phone .fa-solid.fa-hand-scissors {
+    transform: rotate(90deg) scaleY(-1);
+}
