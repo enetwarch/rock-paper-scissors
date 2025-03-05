@@ -57,12 +57,18 @@ function saveScores() {
 
 const computer = document.getElementById("computer");
 const player = document.getElementById("player");
+let roundIsOngoing = false;
 
 function playRound(playerMove) {
+    if (roundIsOngoing) return;
+    roundIsOngoing = true;
     const computerMove = Math.floor(Math.random() * 3) + 1;
     evaluateWinner(playerMove, computerMove);
     displayMoves(playerMove, computerMove);
     setTimeout(displayScores, 1000);
+    setTimeout(() => {
+        roundIsOngoing = false;
+    }, 2000);
 }
 
 function evaluateWinner(playerMove, computerMove) {
