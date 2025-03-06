@@ -63,6 +63,7 @@ function playRound(playerMove) {
     roundIsOngoing = true;
     const computerMove = Math.floor(Math.random() * 3) + 1;
     evaluateWinner(playerMove, computerMove);
+    saveScores();
     displayMoves(playerMove, computerMove);
     setTimeout(displayScores, 1000);
     setTimeout(() => {
