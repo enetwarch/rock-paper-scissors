@@ -1,6 +1,6 @@
 # [Rock Paper Scissors](https://enetwarch.github.io/rock-paper-scissors/)
 
-A basic rock paper scissors game against a computer. The UI is a phone with 3 input buttons: rock, paper, and scissors. The scores will be saved to your machine's local storage to keep track of the never ending RNG struggle.
+A basic rock paper scissors game against a computer. The scores will be saved to your machine's local storage to keep track of the never ending RNG struggle.
 
 ### Tech Stack
 

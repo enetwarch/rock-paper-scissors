@@ -5,6 +5,8 @@
     --black-2: #333333;
     --black-3: #4d4d4d;
     --blue: #608cab;
+    --green: #72a079;
+    --red: #bb4948;
     --white: #e6e6e6;
 }
 
@@ -31,7 +33,51 @@ body {
     min-height: 100vh;
 }
 
-.phone {
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+header {
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem clamp(1rem, 10vw, 10rem);
+    width: 100%;
+}
+
+header nav {
+    align-items: center;
+    display: flex;
+    gap: 1rem;
+}
+
+header nav .white {
+    color: var(--white);
+}
+
+header nav .red {
+    color: var(--red);
+}
+
+header nav .green {
+    color: var(--green);
+}
+
+header nav .blue {
+    color: var(--blue);
+}
+
+main {
+    align-items: center;
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    padding-block: 2rem;
+    width: 100vw;
+}
+
+main .phone {
     background-color: var(--black-2);
     border-radius: 2rem;
     display: grid;
@@ -41,7 +87,7 @@ body {
 }
 
 
-.phone .output {
+main .phone .output {
     background-color: var(--blue);
     display: grid;
     grid-column: 1 / 4;
@@ -51,7 +97,7 @@ body {
     border-radius: 1rem;
 }
 
-.phone .output > * {
+main .phone .output > * {
     align-items: center;
     color: var(--black-2);
     display: flex;
@@ -60,7 +106,7 @@ body {
     transition: opacity 0.1s;
 }
 
-.phone .input {
+main .phone .input {
     align-items: center;
     background-color: var(--black-3);
     color: var(--white);
@@ -70,20 +116,28 @@ body {
     border-radius: 100px;
 }
 
-.phone .input:hover {
+main .phone .input:hover {
     cursor: pointer;
 }
 
-.phone .output #computer .fa-solid.fa-hand-scissors {
+main .phone .output #computer .fa-solid.fa-hand-scissors {
     transform: rotate(-90deg) scaleY(-1);
 }
 
-.phone .output #computer .fa-solid {
+main .phone .output #computer .fa-solid {
     transform: rotate(180deg);
 }
 
-.phone .fa-solid.fa-hand-scissors {
+main .phone .fa-solid.fa-hand-scissors {
     transform: rotate(90deg) scaleY(-1);
+}
+
+footer {
+    align-items: center;
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    padding: 1.5rem;
 }
 
 .fade-in {
