@@ -1,3 +1,6 @@
+const millisecond = 1;
+const second = 1000 * millisecond;
+
 window.addEventListener("beforeunload", saveScores);
 window.addEventListener("load", () => {
     addListeners();
@@ -31,7 +34,7 @@ function addListener(listener, func) {
         const eventCode = listener[1];
         document.addEventListener(eventType, event => {
             if (event.code === eventCode) func();
-        })
+        });
     }
 }
 
@@ -43,7 +46,7 @@ const defaultScores = {
 
 function retrieveScores() {
     const storedScores = localStorage.getItem("scores");
-    if (storedScores === null || storedScores === undefined) {
+    if (!storedScores) {
         scores = structuredClone(defaultScores);
     } else {
         scores = JSON.parse(storedScores);
@@ -64,39 +67,69 @@ function playRound(playerMove) {
     const computerMove = Math.floor(Math.random() * 3) + 1;
     evaluateWinner(playerMove, computerMove);
     saveScores();
+    highlightPlayerMove(playerMove);
     displayMoves(playerMove, computerMove);
-    setTimeout(displayScores, 1000);
+    setTimeout(() => {
+        changeStateColor("idle");
+        highlightPlayerMove(playerMove);
+        displayScores();
+    }, 1 * second);
     setTimeout(() => {
         roundIsOngoing = false;
-    }, 2000);
+    }, 2 * second);
 }
 
 function evaluateWinner(playerMove, computerMove) {
-    if (playerMove === computerMove) return;
+    if (playerMove === computerMove) {
+        changeStateColor("draw");
+        return;
+    }
     const playerWinConditions = [
         playerMove === 1 && computerMove === 3,
         playerMove === 2 && computerMove === 1,
         playerMove === 3 && computerMove === 2
     ];
     if (playerWinConditions.includes(true)) {
+        changeStateColor("win");
         scores.player++;
     } else {
+        changeStateColor("lose");
         scores.computer++;
     }
 }
 
-function displayMoves(playerMove, computerMove) {
-    const playerMoveIcon = getMoveIcon(playerMove);
-    const computerMoveIcon = getMoveIcon(computerMove);
-    displayFade(playerMoveIcon, computerMoveIcon);
+const stateColors = {
+    "idle": "--primary-1",
+    "draw": "--green",
+    "win": "--blue",
+    "lose": "--red"
+};
+const moveElements = {
+    1: document.getElementById("rock"),
+    2: document.getElementById("paper"),
+    3: document.getElementById("scissors")
+};
+const moveIcons = {
+    1: `<i class="fa-solid fa-hand-back-fist"></i>`,
+    2: `<i class="fa-solid fa-hand"></i>`,
+    3: `<i class="fa-solid fa-hand-scissors"></i>`
+};
+
+function changeStateColor(state) {
+    const root = getComputedStyle(document.documentElement);
+    const stateColor = root.getPropertyValue(stateColors[state]);
+    document.body.style.backgroundColor = stateColor;
 }
 
-function getMoveIcon(move) {
-    switch (move) {
-        case 1: return `<i class="fa-solid fa-hand-back-fist"></i>`;
-        case 2: return `<i class="fa-solid fa-hand"></i>`;
-        case 3: return `<i class="fa-solid fa-hand-scissors"></i>`;
-    }
+function highlightPlayerMove(playerMove) {
+    const playerMoveElement = moveElements[playerMove];
+    playerMoveElement.classList.toggle("inverted");
+}
+
+function displayMoves(playerMove, computerMove) {
+    const playerMoveIcon = moveIcons[playerMove];
+    const computerMoveIcon = moveIcons[computerMove];
+    displayFade(playerMoveIcon, computerMoveIcon);
 }
 
 function displayScores() {
@@ -106,14 +139,12 @@ function displayScores() {
 }
 
 function displayFade(playerSide, computerSide) {
-    player.classList.add("fade-out");
-    computer.classList.add("fade-out");
+    player.classList.toggle("fade-out");
+    computer.classList.toggle("fade-out");
     setTimeout(() => {
         player.innerHTML = playerSide;
         computer.innerHTML = computerSide;
-        player.classList.remove("fade-out");
-        computer.classList.remove("fade-out");
-        player.classList.add("fade-in");
-        computer.classList.add("fade-in"); 
-    }, 100);
+        player.classList.toggle("fade-out");
+        computer.classList.toggle("fade-out");
+    }, 100 * millisecond);
 }
