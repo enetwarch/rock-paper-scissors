@@ -10,6 +10,24 @@
     --white: #e6e6e6;
 }
 
+@media (prefers-color-scheme: light) {
+    :root {
+        --primary-1: hsl(0, 0%, 90%);
+        --primary-2: hsl(0, 0%, 80%);
+        --primary-3: hsl(0, 0%, 70%);
+        --secondary-1: hsl(0, 0%, 10%);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-1: hsl(0, 0%, 10%);
+        --primary-2: hsl(0, 0%, 20%);
+        --primary-3: hsl(0, 0%, 30%);
+        --secondary-1: hsl(0, 0%, 90%);
+    }
+}
+
 * {
     -webkit-tap-highlight-color: transparent;
     box-sizing: border-box;
@@ -20,130 +38,88 @@
     user-select: none;
 }
 
-html {
-    font-size: clamp(12px, 2vw, 16px);
-}
-
 body {
     align-items: center;
-    background-color: var(--black-1);
+    background-color: var(--primary-1);
     display: flex;
     flex-direction: column;
     justify-content: center;
     min-height: 100vh;
 }
 
-a {
-    color: inherit;
-    text-decoration: none;
-}
-
-header {
-    color: var(--white);
-    display: flex;
-    justify-content: space-between;
-    padding: 2rem clamp(1rem, 10vw, 10rem);
-    width: 100%;
-}
-
-header nav {
-    align-items: center;
-    display: flex;
-    gap: 1rem;
-}
-
-header nav .white {
-    color: var(--white);
-}
-
-header nav .red {
-    color: var(--red);
-}
-
-header nav .green {
-    color: var(--green);
-}
-
-header nav .blue {
-    color: var(--blue);
-}
-
-main {
-    align-items: center;
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-    padding-block: 2rem;
-    width: 100vw;
-}
-
-main .phone {
-    background-color: var(--black-2);
-    border-radius: 2rem;
-    display: grid;
-    gap: 1rem;
-    grid-template: 20rem 4rem / repeat(3, 4rem);
-    padding: 2rem;
-}
-
-
-main .phone .output {
-    background-color: var(--blue);
+.output {
+    border-radius: 1rem;
     display: grid;
     grid-column: 1 / 4;
     grid-template-rows: repeat(2, 1fr);
+    height: 40vh;
     overflow: hidden;
     padding: 1rem;
-    border-radius: 1rem;
 }
 
-main .phone .output > * {
+.output > * {
     align-items: center;
-    color: var(--black-2);
+    color: var(--secondary-1);
     display: flex;
     font-size: 5rem;
     justify-content: center;
-    transition: opacity 0.1s;
+    transition: opacity 0.25s;
 }
 
-main .phone .input {
+.output > *.fade-out {
+    opacity: 0;
+}
+
+.input {
     align-items: center;
-    background-color: var(--black-3);
-    color: var(--white);
+    background-color: var(--primary-2);
+    border-radius: 100px;
     display: flex;
     font-size: 2rem;
+    gap: 1rem;
     justify-content: center;
+    padding: 1rem;
+    position: fixed;
+    top: 80%;
+}
+
+.input > * {
+    background-color: var(--primary-3);
     border-radius: 100px;
+    color: var(--secondary-1);
+    display: flex;
+    font-size: 2rem;
+    height: 4rem;
+    padding: 1rem;
+    text-align: center;
+    transition: background-color 0.25s, color 0.25s;
+    width: 4rem;
 }
 
-main .phone .input:hover {
+.input > *:hover {
     cursor: pointer;
+    opacity: 0.8;
 }
 
-main .phone .output #computer .fa-solid.fa-hand-scissors {
+.input > *.inverted {
+    background-color: var(--secondary-1);
+    color: var(--primary-1);
+}
+
+.output #computer .fa-solid.fa-hand-scissors {
     transform: rotate(-90deg) scaleY(-1);
 }
 
-main .phone .output #computer .fa-solid {
+.output #computer .fa-solid {
     transform: rotate(180deg);
 }
 
-main .phone .fa-solid.fa-hand-scissors {
+.fa-solid.fa-hand-scissors {
     transform: rotate(90deg) scaleY(-1);
 }
 
-footer {
-    align-items: center;
-    color: var(--white);
-    display: flex;
-    justify-content: center;
-    padding: 1.5rem;
-}
-
-.fade-in {
-    opacity: 1;
-}
-
-.fade-out {
-    opacity: 0;
+@media only screen and (max-width: 800px) {
+    html {
+        font-size: 12px;
+    }
 }
