@@ -47,40 +47,17 @@ body {
     transition: background-color 0.25s;
 }
 
-.output {
-    border-radius: 1rem;
-    display: grid;
-    grid-column: 1 / 4;
-    grid-template-rows: repeat(2, 1fr);
-    height: 50vh;
-    overflow: hidden;
-    padding: 1rem;
-}
-
-.output > * {
-    align-items: center;
-    color: var(--secondary-1);
-    display: flex;
-    font-size: 8rem;
-    justify-content: center;
-    transition: opacity 0.1s;
-}
-
-.output > *.fade-out {
-    opacity: 0;
-}
-
 .input {
     align-items: center;
     background-color: var(--primary-2);
     border-radius: 1rem;
+    bottom: 2rem;
     display: flex;
     font-size: 2rem;
     gap: 1rem;
     justify-content: center;
     padding: 1rem;
     position: fixed;
-    top: 80%;
 }
 
 .input > * {
@@ -104,6 +81,29 @@ body {
 .input > *.inverted {
     background-color: var(--secondary-1);
     color: var(--primary-1);
+}
+
+.output {
+    border-radius: 1rem;
+    display: grid;
+    grid-column: 1 / 4;
+    grid-template-rows: repeat(2, 1fr);
+    height: 50vh;
+    overflow: hidden;
+    padding: 1rem;
+}
+
+.output > * {
+    align-items: center;
+    color: var(--secondary-1);
+    display: flex;
+    font-size: 8rem;
+    justify-content: center;
+    transition: opacity 0.1s;
+}
+
+.output > *.fade-out {
+    opacity: 0;
 }
 
 .output #computer .fa-solid.fa-hand-scissors {
