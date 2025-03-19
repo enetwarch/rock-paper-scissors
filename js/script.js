@@ -99,7 +99,7 @@ function evaluateWinner(playerMove, computerMove) {
 }
 
 const stateColors = {
-    "idle": "--primary-1",
+    "idle": "--dark-1",
     "draw": "--green",
     "win": "--blue",
     "lose": "--red"
