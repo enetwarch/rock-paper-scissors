@@ -1,4 +1,4 @@
-# [Rock Paper Scissors](https://enetwarch.github.io/rock-paper-scissors/)
+# Rock Paper Scissors
 
 A basic rock paper scissors game against a computer. The scores will be saved to your machine's local storage to keep track of the never ending RNG struggle. Other than tapping the ui buttons, **pressing the 1, 2 or 3 keyboard keys will play rock, paper, and scissors respectively**. The background changes depending on who won the game.
 
@@ -13,3 +13,7 @@ A basic rock paper scissors game against a computer. The scores will be saved to
     * [Rock](https://fontawesome.com/icons/hand-back-fist)
     * [Paper](https://fontawesome.com/icons/hand)
     * [Scissors](https://fontawesome.com/icons/hand-scissors)
+
+### License
+
+* [MIT License](LICENSE)
