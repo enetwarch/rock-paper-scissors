@@ -64,7 +64,6 @@ function playRound(playerMove) {
 function evaluateWinner(playerMove, computerMove) {
     if (playerMove === computerMove) {
         changeStateColor("draw");
-        return;
     } else if (isPlayerWinner(playerMove, computerMove)) {
         changeStateColor("win");
         scores.player++;
