@@ -1,95 +1,71 @@
-const millisecond = 1;
-const second = 1000 * millisecond;
-
-window.addEventListener("beforeunload", saveScores);
-window.addEventListener("load", () => {
-    addListeners();
-    retrieveScores();
-    displayScores();
-});
-
-const listenerConfig = [
-    [() => playRound(1), [["click", "rock"], ["keyup", "Digit1"]]],
-    [() => playRound(2), [["click", "paper"], ["keyup", "Digit2"]]],
-    [() => playRound(3), [["click", "scissors"], ["keyup", "Digit3"]]]
-];
-
-function addListeners() {
-    listenerConfig.forEach(config => {
-        const func = config[0];
-        const listeners = config[1];
-        listeners.forEach(listener => {
-            addListener(listener, func);
-        });
-    }); 
-}
-
-function addListener(listener, func) {
-    const eventType = listener[0];
-    if (eventType === "click") {
-        const id = listener[1];
-        const element = document.getElementById(id);
-        element.addEventListener(eventType, func);
-    } else if (eventType === "keyup") {
-        const eventCode = listener[1];
-        document.addEventListener(eventType, event => {
-            if (event.code === eventCode) func();
-        });
-    }
-}
-
-let scores;
+let scores = {};
 const defaultScores = {
     "player": 0,
     "computer": 0
 };
 
-function retrieveScores() {
+window.addEventListener("load", () => {
     const storedScores = localStorage.getItem("scores");
     if (!storedScores) {
         scores = structuredClone(defaultScores);
     } else {
         scores = JSON.parse(storedScores);
     }
-}
 
-function saveScores() {
-    localStorage.setItem("scores", JSON.stringify(scores));
-}
+    displayScores();
+});
 
-const computer = document.getElementById("computer");
-const player = document.getElementById("player");
+const rockElement = document.getElementById("rock");
+const paperElement = document.getElementById("paper");
+const scissorsElement = document.getElementById("scissors");
+
+const ROCK = 1, PAPER = 2, SCISSORS = 3;
+
+rockElement.addEventListener("click", () => playRound(ROCK));
+document.addEventListener("keyup", event => {
+    if (event.code === "Digit1") playRound(ROCK);
+});
+
+paperElement.addEventListener("click", () => playRound(PAPER));
+document.addEventListener("keyup", event => {
+    if (event.code === "Digit2") playRound(PAPER);
+})
+
+scissorsElement.addEventListener("click", () => playRound(SCISSORS));
+document.addEventListener("keyup", event => {
+    if (event.code === "Digit3") playRound(SCISSORS);
+})
+
 let roundIsOngoing = false;
 
 function playRound(playerMove) {
     if (roundIsOngoing) return;
     roundIsOngoing = true;
+
     const computerMove = Math.floor(Math.random() * 3) + 1;
     evaluateWinner(playerMove, computerMove);
-    saveScores();
-    highlightPlayerMove(playerMove);
+
+    localStorage.setItem("scores", JSON.stringify(scores));
+
     displayMoves(playerMove, computerMove);
+    highlightPlayerMove(playerMove);
+
     setTimeout(() => {
         changeStateColor("idle");
         highlightPlayerMove(playerMove);
         displayScores();
-    }, 1 * second);
+    }, 1000);
+
     setTimeout(() => {
         roundIsOngoing = false;
-    }, 2 * second);
+    }, 2000);
 }
 
 function evaluateWinner(playerMove, computerMove) {
     if (playerMove === computerMove) {
         changeStateColor("draw");
         return;
-    }
-    const playerWinConditions = [
-        playerMove === 1 && computerMove === 3,
-        playerMove === 2 && computerMove === 1,
-        playerMove === 3 && computerMove === 2
-    ];
-    if (playerWinConditions.includes(true)) {
+    } else if (isPlayerWinner(playerMove, computerMove)) {
         changeStateColor("win");
         scores.player++;
     } else {
@@ -98,17 +74,27 @@ function evaluateWinner(playerMove, computerMove) {
     }
 }
 
+function isPlayerWinner(playerMove, computerMove) {
+    return (
+        (playerMove === 1 && computerMove === 3) ||
+        (playerMove === 2 && computerMove === 1) ||
+        (playerMove === 3 && computerMove === 2)
+    );
+}
+
 const stateColors = {
     "idle": "--dark-1",
     "draw": "--green",
     "win": "--blue",
     "lose": "--red"
 };
+
 const moveElements = {
     1: document.getElementById("rock"),
     2: document.getElementById("paper"),
     3: document.getElementById("scissors")
 };
+
 const moveIcons = {
     1: `<i class="fa-solid fa-hand-back-fist"></i>`,
     2: `<i class="fa-solid fa-hand"></i>`,
@@ -118,6 +104,7 @@ const moveIcons = {
 function changeStateColor(state) {
     const root = getComputedStyle(document.documentElement);
     const stateColor = root.getPropertyValue(stateColors[state]);
+
     document.body.style.backgroundColor = stateColor;
 }
 
@@ -129,22 +116,29 @@ function highlightPlayerMove(playerMove) {
 function displayMoves(playerMove, computerMove) {
     const playerMoveIcon = moveIcons[playerMove];
     const computerMoveIcon = moveIcons[computerMove];
+
     displayFade(playerMoveIcon, computerMoveIcon);
 }
 
 function displayScores() {
     const playerScore = scores.player;
     const computerScore = scores.computer;
+
     displayFade(playerScore, computerScore);
 }
 
+const computerElement = document.getElementById("computer");
+const playerElement = document.getElementById("player");
+
 function displayFade(playerSide, computerSide) {
-    player.classList.toggle("fade-out");
-    computer.classList.toggle("fade-out");
+    playerElement.classList.toggle("fade-out");
+    computerElement.classList.toggle("fade-out");
+
     setTimeout(() => {
-        player.innerHTML = playerSide;
-        computer.innerHTML = computerSide;
-        player.classList.toggle("fade-out");
-        computer.classList.toggle("fade-out");
-    }, 100 * millisecond);
+        playerElement.innerHTML = playerSide;
+        computerElement.innerHTML = computerSide;
+
+        playerElement.classList.toggle("fade-out");
+        computerElement.classList.toggle("fade-out");
+    }, 100);
 }
